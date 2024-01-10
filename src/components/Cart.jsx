@@ -2,10 +2,13 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useCart } from "../CartContext";
 import Header from "./Header";
+import { useAuth } from '../AuthContext';
 
-function Cart() {
+
+export default function Cart() {
   const { cart, removeFromCart} = useCart();
   const [counts, setCounts] = useState({});
+  const { isLoggedIn, login, logout } = useAuth(); // Use useAuth instead of useContext
 
 
 
@@ -136,7 +139,7 @@ function Cart() {
               <p className="text-muted">Tax and shipping cost will be calculated later</p>
               </div>
               <div className="d-col ms-5">
-               <Link to="/auth"> <button className="btn btn-success">Checkout</button></Link>
+               <Link to="/auth"> <button className="btn btn-success" onClick={isLoggedIn ? logout : login}>Checkout</button></Link>
               </div>
             </div>
           </>
@@ -151,4 +154,4 @@ function Cart() {
   );
 }
 
-export default Cart;
+

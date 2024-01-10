@@ -58,9 +58,12 @@ function Navbar() {
 
                                 ) : (
                                     // <p>Please log in</p>
-                                <button className=" btn btn-success justify-content-between align-items-center me-2" onClick={isLoggedIn ? logout : login}>
+                                    
+                               <Link to='/auth'>
+                                <button className=" btn btn-success justify-content-between align-items-center me-2" >
                                     {isLoggedIn ? 'Logout' : 'Login'}
                                 </button>
+                                </Link>
                                 )}
                             </div>
                            

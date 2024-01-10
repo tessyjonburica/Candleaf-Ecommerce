@@ -59,6 +59,7 @@ import DetailPage from './pages/Detailpage';
 import Cart from './components/Cart';
 import { AuthProvider } from './AuthContext';
 import AuthPage from './pages/AuthenticationPage';
+import Register from './pages/Register';
 
 function App() {
   return (
@@ -71,6 +72,7 @@ function App() {
                 <Route index element={<Home />} />
                 <Route path="products" element={<AllProducts />} />
                 <Route path="auth" element={<AuthPage />} />
+                <Route path="register" element={<Register/>} />
                 <Route path="/:productId?/Detailpage" element={<DetailPage />} />
                 <Route path="/cart" element={<Cart />} />
                 <Route path="*" element={<Nopage />} />
