@@ -42,31 +42,31 @@ function Navbar() {
                         </ul>
                         <div className="d-flex d-sm-col me-5 align-items-center">
 
-                            <div>
-                                {isLoggedIn ? (
-                                     <div className="nav-item dropdown">
-                                     <Link className="navbar-brand nav-link dropdown-toggle" to="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                         <img src={avatar} alt="Avatar Logo" style={{ width: "40px", backgroundColor: "white" }} className="rounded-pill" />
-                                     </Link>
-                                     <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
-                                         <li><Link className="dropdown-item" to="/malesection">Settings</Link></li>
-                                         <li><hr className="dropdown-divider" /></li>
-                                         {/* <li ><Link className="dropdown-item" onClick={isLoggedIn ? login : logout}>{isLoggedIn ? 'Login' : 'Logout'}</Link></li> */}
-                                         <li className="dropdown-item" onClick={logout}> {isLoggedIn ? 'Logout' : 'Login'}</li>
-                                     </ul>
-                                 </div>
+                            {/* <div>
+                                {isLoggedIn == true ? (
+                                    <div className="nav-item dropdown">
+                                        <Link className="navbar-brand nav-link dropdown-toggle" to="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                            <img src={avatar} alt="Avatar Logo" style={{ width: "40px", backgroundColor: "white" }} className="rounded-pill" />
+                                        </Link>
+                                        <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
+                                            <li><Link className="dropdown-item" to="/malesection">Settings</Link></li>
+                                            <li><hr className="dropdown-divider" /></li>
+                                           
+                                            <li className="dropdown-item" onClick={logout}> {isLoggedIn ? 'Logout' : 'Login'}</li>
+                                        </ul>
+                                    </div>
 
                                 ) : (
-                                    // <p>Please log in</p>
-                                    
-                               <Link to='/auth'>
-                                <button className=" btn btn-success justify-content-between align-items-center me-2" >
-                                    {isLoggedIn ? 'Logout' : 'Login'}
-                                </button>
-                                </Link>
+
+                                    <Link to='/auth'>
+                                        <button onClick={() => 'clicked'} className=" btn btn-success justify-content-between align-items-center me-2" >
+                                            {isLoggedIn ? 'Logout' : 'Login'}
+
+                                        </button>
+                                    </Link>
                                 )}
-                            </div>
-                           
+                            </div> */}
+
 
                             <div >
                                 <ul class="navbar-nav">

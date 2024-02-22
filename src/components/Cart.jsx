@@ -1,33 +1,50 @@
-import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { useCart } from "../CartContext";
 import Header from "./Header";
 import { useAuth } from '../AuthContext';
 
-
 export default function Cart() {
-  const { cart, removeFromCart} = useCart();
+  const { cart, removeFromCart } = useCart();
   const [counts, setCounts] = useState({});
-  const { isLoggedIn, login, logout } = useAuth(); // Use useAuth instead of useContext
+  const { isLoggedIn, login } = useAuth();
+  const navigate = useNavigate();
 
-
-
-  const decreaseCount = (productId) => {
-    if (counts[productId] > 1) {
-      setCounts((prevCounts) => ({
-        ...prevCounts,
-        [productId]: prevCounts[productId] - 1,
-      }));
+  const handleLogin = () => {
+    if (isLoggedIn === true) {
+      navigate('/checkout');
+    } else {
+      login();
+      navigate('/checkout');
     }
   };
 
-  const increaseCount = (productId) => {
+  const decreaseCount = (itemId) => {
     setCounts((prevCounts) => ({
       ...prevCounts,
-      [productId]: (prevCounts[productId] || 0) + 1,
+      [itemId]: Math.max((prevCounts[itemId] || 0) - 1, 0),
     }));
+
+    updateCart(itemId, Math.max((counts[itemId] || 0) - 1, 1));
   };
-  console.log('counts', counts)
+
+  const increaseCount = (itemId) => {
+    setCounts((prevCounts) => ({
+      ...prevCounts,
+      [itemId]: (prevCounts[itemId] || 0) + 1,
+    }));
+
+    updateCart(itemId, (counts[itemId] || 0) + 1);
+  };
+
+  const updateCart = (itemId, quantity) => {
+    const updatedCart = cart.map(item =>
+      item.id === itemId ? { ...item, quantity } : item
+    );
+
+    // You should replace this with your actual function to update the cart in CartContext
+    // updateCartFunction(updatedCart);
+  };
 
   const calculateSubtotal = () => {
     return cart.reduce((total, item) => {
@@ -35,8 +52,6 @@ export default function Cart() {
       return total + itemTotal;
     }, 0).toFixed(2);
   };
-
-
 
   return (
     <>
@@ -84,7 +99,7 @@ export default function Cart() {
               </thead>
               <tbody>
                 {cart.map((item) => (
-                  <tr key={item.productId}>
+                  <tr key={item.id}>
                     <td className="d-flex align-items-center justify-between">
                       <div>
                         <img
@@ -134,17 +149,19 @@ export default function Cart() {
             </table>
             <div className="d-flex justify-content-end mt-3">
               <div className="d-col">
-
-              <h5>Subtotal: ${calculateSubtotal()}</h5>
-              <p className="text-muted">Tax and shipping cost will be calculated later</p>
+                <h5>Subtotal: ${calculateSubtotal()}</h5>
+                <p className="text-muted">Tax and shipping cost will be calculated later</p>
               </div>
               <div className="d-col ms-5">
-               <Link to="/auth"> <button className="btn btn-success" onClick={isLoggedIn ? logout : login}>Checkout</button></Link>
+                <Link to="/auth">
+                  <button className="btn btn-success" onClick={handleLogin}>
+                    Checkout
+                  </button>
+                </Link>
               </div>
             </div>
           </>
         ) : (
-          // Display a message when the cart is empty
           <div className="text-center">
             <p>Your cart is empty!</p>
           </div>
@@ -153,5 +170,3 @@ export default function Cart() {
     </>
   );
 }
-
-
